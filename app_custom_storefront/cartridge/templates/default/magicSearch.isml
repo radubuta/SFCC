@@ -1,0 +1,20 @@
+<isdecorate template="common/layout/page">
+  <div class="container cart cart-page">
+    <div class="row">
+      <!---product cards--->
+      <div class="col-sm-12 col-md-12">
+        <div class="header">
+          <h1>🤓 Dad jokes matching the term ${pdict.term}:</h1>
+        </div>
+        <hr />
+        <div class="content">
+          <ul>
+            <isloop items="${pdict.jokes}" var="jokeObject">
+              <li>${jokeObject.joke}</li>
+            </isloop>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</isdecorate>

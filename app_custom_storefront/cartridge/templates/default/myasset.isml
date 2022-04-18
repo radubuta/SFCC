@@ -1,0 +1,11 @@
+<isinclude template="/components/modules" sf-toolkit="off" />
+<isdecorate template="common/layout/page">
+    <isscript>
+        var assets = require('*/cartridge/scripts/assets.js');
+        assets.addCss('/css/radu.css');
+    </isscript>
+    <iscontentasset aid="radu-slot" />
+    <a href="${URLUtils.url('Magic-Show')}">
+        ${Resource.msg('link.login.forgotpassword', 'login', null)}
+    </a>
+</isdecorate>
