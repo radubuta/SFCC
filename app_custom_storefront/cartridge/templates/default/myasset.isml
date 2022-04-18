@@ -9,3 +9,5 @@
         ${Resource.msg('link.login.forgotpassword', 'login', null)}
     </a>
 </isdecorate>
+
+<isinclude url="${URLUtils.url('Magic-Product')}"/>
