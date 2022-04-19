@@ -25,7 +25,7 @@ server.get('Product', function (req, res, next) {
   var productModels = products.map(function (product) {
     return newFactory.get({ pid: product, pview: 'tile' });
   });
-
+  // res.json({products: productModels})
   res.render(template, { products: productModels });
   next();
 });
@@ -74,9 +74,8 @@ server.get('Cart', server.middleware.https, csrfProtection.generateToken,
     res.setViewData({ reportingURLs: reportingURLs });
 
     var basketModel = new CartModel(currentBasket);
-
-
-    // res.json('cart', currentBasket);
+  
+    // res.json({'cart': basketModel});
     // res.render(template, basketModel);
     res.render(template, basketModel);
     next();
@@ -130,7 +129,7 @@ server.get('Category', function (req, res, next) {
   }
 
   // res.json({products: products})
-  res.render(template, { products: products, category: category });
+  res.render(template, { products: products });
 
   next();
 });
