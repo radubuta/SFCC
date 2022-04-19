@@ -20,7 +20,8 @@ server.get('Show', function (req, res, next) {
 server.get('Product', function (req, res, next) {
   var template = 'product';
   var newFactory = require('*/cartridge/scripts/factories/product');
-  var products = ['radu-product', 'radu-product'];
+  var products = ['62516752M', '25697378M'];
+
   var productModels = products.map(function (product) {
     return newFactory.get({ pid: product, pview: 'tile' });
   });
@@ -73,8 +74,8 @@ server.get('Cart', server.middleware.https, csrfProtection.generateToken,
     res.setViewData({ reportingURLs: reportingURLs });
 
     var basketModel = new CartModel(currentBasket);
-    
-    
+
+
     // res.json('cart', currentBasket);
     // res.render(template, basketModel);
     res.render(template, basketModel);
@@ -95,6 +96,42 @@ server.get('Search', function (req, res, next) {
   }
 
   res.render(template, properties);
+  next();
+});
+
+server.get('Category', function (req, res, next) {
+  var template = 'product';
+  var CatalogMgr = require('dw/catalog/CatalogMgr');
+  var ProductFactory = require('*/cartridge/scripts/factories/product');
+  var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+  var apiProductSearch = new ProductSearchModel();
+  var PagingModel = require('dw/web/PagingModel');
+  var category = CatalogMgr.getCategory('newarrivals');
+  var pagingModel;
+  var products = [];
+  
+  apiProductSearch.setCategoryID(category.ID);
+  apiProductSearch.search();
+  pagingModel = new PagingModel(
+    apiProductSearch.getProductSearchHits(),
+    apiProductSearch.count
+  );
+  var iter = pagingModel.pageElements;
+  pagingModel.setStart(1);
+  pagingModel.setPageSize(30);
+  
+
+  while (iter !== null && iter.hasNext()) {
+    productSearchHit = iter.next();
+    product = ProductFactory.get({
+      pid: productSearchHit.getProduct().ID,
+    });
+    products.push(product);
+  }
+
+  // res.json({products: products})
+  res.render(template, { products: products, category: category });
+
   next();
 });
 

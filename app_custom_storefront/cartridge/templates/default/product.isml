@@ -1,15 +1,19 @@
 <isdecorate template="common/layout/page">
-  <div class="mainDiv">
+  <div class="container">
+  <div class="row">
     <isloop items="${pdict.products}" var="product">
+    <div class="col-md-3">
       <div class="card" style="width: 18rem;">
+       <img src="${product.images.large[0].absURL}" class="card-img-top" alt="${product.productName}">
         <div class="card-body">
           <h5 class="card-title">${product.productName}</h5>
           <p class="card-text">Id: ${product.id}</p>
           <p class="card-text">Rating: ${product.rating}</p>
           <p class="card-text">Type: ${product.productType}</p>
-          <a href="#" class="btn btn-primary">${product.uuid}</a>
         </div>
       </div>
+      </div>
     </isloop>
+  </div>
   </div>
 </isdecorate>
