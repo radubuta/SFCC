@@ -1,0 +1,14 @@
+<isdecorate template="common/layout/page">
+  <div class="container">
+    <isif condition="${pdict.error}">
+      <span>ERROR: ${pdict.error}</span>
+  <iselse/>
+      <div>
+        <h1>Radu Form Result</h1>
+        <p>Thanks ${pdict.firstName}.</p>
+        <p>Nice to meet you, ${pdict.email}.</p>
+      </div>
+    </isif>
+  </div>
+  </br>
+</isdecorate>

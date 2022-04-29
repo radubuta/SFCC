@@ -1,0 +1,13 @@
+<isdecorate template="common/layout/page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-body">
+          <h5 class="card-title">Id: ${pdict.data.id}</h5>
+          <h5 class="card-title">Age: ${pdict.data.age}</h5>
+          <h5 class="card-title">Name: ${pdict.data.name}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</isdecorate>

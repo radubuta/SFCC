@@ -1,0 +1,21 @@
+<iscache type = "relative" hour = "0" minute = "0" if="${true}"/>
+<isdecorate template="common/layout/page">
+  <div class="container">
+    <div>
+      <h1>Radu Form</h1>
+    </div>
+    <form action="${pdict.actionUrl}" class="login" method="POST" name="profile">
+      <div class="form-group required">
+        <label> Nickname: </label>
+        <input type="input" id="nickname" class="form-control" name="nickname"></br>
+        <label> FirstName: </label>
+        <input type="input" id="firstName" class="form-control" name="firstName"></br>
+        <label> LastName: </label>
+        <input type="input" id="lastName" class="form-control" name="lastName">
+      </div>
+      <button type="submit" class="btn btn-block btn-primary">Submit</button>
+  </div>
+  </form>
+  </div>
+  </br>
+</isdecorate>

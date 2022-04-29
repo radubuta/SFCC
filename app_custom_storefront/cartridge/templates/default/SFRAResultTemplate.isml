@@ -1,0 +1,11 @@
+<isdecorate template="common/layout/page">
+    <div class="container">
+        <div>
+            <h1>Radu Form Result</h1>
+        </div>
+        <p>Nice to meet you, ${pdict.nickname}.</p>
+        <p>Nice to meet you, ${pdict.firstName}.</p>
+        <p>Nice to meet you, ${pdict.lastName}.</p>
+    </div>
+    </br>
+</isdecorate>
