@@ -19,6 +19,7 @@ server.get('Show', function (req, res, next) {
     name: name,
     age: age
   };
+  
 
   res.render(template, { data: customObject });
   next();

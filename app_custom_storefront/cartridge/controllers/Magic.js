@@ -1,6 +1,8 @@
+/* eslint-disable global-require */
 /* eslint-disable func-names */
 var server = require('server');
 var service = require('app_custom_storefront/cartridge/services/dadjokeservice');
+var serviceABC = require('app_custom_storefront/cartridge/services/serviceABC');
 var csrfProtection = require('*/cartridge/scripts/middleware/csrf');
 
 server.get('Show', function (req, res, next) {
@@ -74,7 +76,7 @@ server.get('Cart', server.middleware.https, csrfProtection.generateToken,
     res.setViewData({ reportingURLs: reportingURLs });
 
     var basketModel = new CartModel(currentBasket);
-  
+
     // res.json({'cart': basketModel});
     // res.render(template, basketModel);
     res.render(template, basketModel);
@@ -108,7 +110,7 @@ server.get('Category', function (req, res, next) {
   var category = CatalogMgr.getCategory('newarrivals');
   var pagingModel;
   var products = [];
-  
+
   apiProductSearch.setCategoryID(category.ID);
   apiProductSearch.search();
   pagingModel = new PagingModel(
@@ -118,7 +120,7 @@ server.get('Category', function (req, res, next) {
   var iter = pagingModel.pageElements;
   pagingModel.setStart(1);
   pagingModel.setPageSize(30);
-  
+
 
   while (iter !== null && iter.hasNext()) {
     productSearchHit = iter.next();
@@ -130,6 +132,33 @@ server.get('Category', function (req, res, next) {
 
   // res.json({products: products})
   res.render(template, { products: products });
+
+  next();
+});
+
+server.get('Customer', function (req, res, next) {
+  var template = 'allcustomers';
+  var Transaction = require('dw/system/Transaction');
+  var CustomerMgr = require('dw/customer/CustomerMgr');
+  var profiles = CustomerMgr.queryProfiles("", null, true, true).asList(0, 20);
+  // In this way I can grab all of the customers but in order not to overload the Google api Key I'll leave just for 20 results
+  // var profiles = CustomerMgr.queryProfiles("", null, true, true)
+  var svcResult;
+  for (var i = 0; i < profiles.length; i++) {
+    var profile = CustomerMgr.getProfile(profiles[i].customerNo);
+    var address = profile.addressBook.addresses;
+    if (address.length !== 0) {
+      svcResult = serviceABC.serviceABCLatLong.call(address[0].address1);
+    }
+    if (svcResult && svcResult.status === 'OK') {
+      Transaction.wrap(function () {
+        profile.custom.customerLat = svcResult.object.results[0].geometry.location.lat;
+        profile.custom.customerLong = svcResult.object.results[0].geometry.location.lng;
+      });
+    }
+  }
+
+  res.render(template, { profiles: profiles });
 
   next();
 });

@@ -1,0 +1,103 @@
+{
+  "step-types": {
+    "chunk-script-module-step": [
+      {
+        "@type-id": "custom.MCC-Feed-ExportCatalog-USA",
+        "@supports-parallel-execution": "false",
+        "@supports-site-context": "true",
+        "@supports-organization-context": "false",
+        "description": "Marketing Cloud Catalog Export",
+        "module": "app_custom_storefront/cartridge/scripts/catalog.js",
+        "before-step-function": "beforeStep",
+        "total-count-function": "getTotalCount",
+        "before-chunk-function": "",
+        "read-function": "read",
+        "process-function": "process",
+        "write-function": "write",
+        "after-chunk-function": "",
+        "after-step-function": "afterStep",
+        "chunk-size": 10,
+        "transactional": "false",
+        "parameters": {
+          "parameter": [
+            {
+              "@name": "ExportID",
+              "@type": "string",
+              "@required": "true",
+              "description": "Export ID for this feed, should match exportID value from custom object definition.",
+              "default-value": "catalogFeed"
+            },
+            {
+              "@name": "ExportFileName",
+              "@type": "string",
+              "@required": "true",
+              "@trim": "true",
+              "description": "Filename for the exported feed.",
+              "default-value": "catalogFeed.psv"
+            },
+            {
+              "@name": "Delimiter",
+              "@type": "string",
+              "@required": "true",
+              "description": "Delimiter character.",
+              "default-value": "|",
+              "enum-values": {
+                "value": [
+                  "|",
+                  ",",
+                  "TAB"
+                ]
+              }
+            },
+            {
+              "@name": "IncrementalExport",
+              "@type": "boolean",
+              "@required": "false",
+              "description": "If set, only updates since the last export are transmitted."
+            },
+            {
+              "@name": "IncludeMasterProduct",
+              "@type": "boolean",
+              "@required": "false",
+              "description": "Specify whether the exported catalog should include master products.",
+              "default-value": "true"
+            },
+            {
+              "@name": "IncludeVariantProduct",
+              "@type": "boolean",
+              "@required": "false",
+              "description": "Specify whether the exported catalog should include variant products.",
+              "default-value": "true"
+            },
+            {
+              "@name": "IncludeVariationGroupProduct",
+              "@type": "boolean",
+              "@required": "false",
+              "description": "Specify whether the exported catalog should include variation group products.",
+              "default-value": "true"
+            },
+            {
+              "@name": "IncludeSimpleProduct",
+              "@type": "boolean",
+              "@required": "false",
+              "description": "Specify whether the exported catalog should include simple products.",
+              "default-value": "true"
+            }
+          ]
+        },
+        "status-codes": {
+          "status": [
+            {
+              "@code": "ERROR",
+              "description": "Used when the step failed with an error."
+            },
+            {
+              "@code": "OK",
+              "description": "Used when the step finished successfully."
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

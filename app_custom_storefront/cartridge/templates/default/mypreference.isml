@@ -1,0 +1,5 @@
+<isdecorate template="common/layout/page">
+    <div>
+        ${dw.system.Site.current.preferences.custom.excludefromplp}
+    </div>
+</isdecorate>

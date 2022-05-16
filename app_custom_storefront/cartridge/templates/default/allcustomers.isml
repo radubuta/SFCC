@@ -1,0 +1,14 @@
+<isdecorate template="common/layout/page">
+  <div class="container">
+  <div class="row">
+    <isloop items="${pdict.profiles}" var="customer">
+    <div class="col-md-3">
+      <div class="card" style="width: 18rem;">
+        ${customer.email}
+        ${customer.customerNo}
+      </div>
+      </div>
+    </isloop>
+  </div>
+  </div>
+</isdecorate>
